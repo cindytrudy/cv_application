@@ -1,16 +1,27 @@
 # cv_application
 
-A new Flutter project.
+# Welcome to my CV Application App
+This app is designed to introudce me to the world as a mobile app developer.
+It includes a displace profile page which has my slack name, my slack display image and also a button that takes you directly to in GitHub profile using a WebView.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+Before you start, ensure you have met the following requirements:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter
+(https://flutter.dev/docs/get-started/install) installed in your development machine
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. Clone this repository to your local machine:
+
+   git clone
+   https://github.com/cindytrudy/cv_application.git
+
+2. Change directory to the folder: cd cv_application
+
+3. Install dependencies: flutter pub get
+
+### Usage
