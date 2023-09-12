@@ -35,3 +35,5 @@ Before you start, ensure you have met the following requirements:
 Launch the app on your preferred device or emulator: flutter run
 
 ### Appetize Link
+
+https://appetize.io/app/vzye5gayvopgikpsh7p2yz6hee?device=pixel4&osVersion=12.0&scale=75
