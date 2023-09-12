@@ -1,48 +1,20 @@
 import 'package:flutter/material.dart';
 import 'cv_data.dart';
 
-class CVEditScreen extends StatefulWidget {
+class CVEditScreen extends StatelessWidget {
   final CVData initialCVData;
-  final Function(CVData) onSave;
 
-  const CVEditScreen({required this.initialCVData, required this.onSave, Key? key}) : super(key: key);
-
-  @override
-  _CVEditScreenState createState() => _CVEditScreenState();
-}
-
-class _CVEditScreenState extends State<CVEditScreen> {
-  late TextEditingController fullNameController;
-  late TextEditingController slackUsernameController;
-  late TextEditingController githubHandleController;
-  late TextEditingController personalBioController;
-  late TextEditingController technicalSkillsController;
-  late TextEditingController languageProficiencyController;
-
-  @override
-  void initState() {
-    super.initState();
-    fullNameController = TextEditingController(text: widget.initialCVData.fullName);
-    slackUsernameController = TextEditingController(text: widget.initialCVData.slackUsername);
-    githubHandleController = TextEditingController(text: widget.initialCVData.githubHandle);
-    personalBioController = TextEditingController(text: widget.initialCVData.personalBio);
-    technicalSkillsController = TextEditingController(text: widget.initialCVData.technicalSkills);
-    languageProficiencyController = TextEditingController(text: widget.initialCVData.languageProficiency);
-  }
-
-  @override
-  void dispose() {
-    fullNameController.dispose();
-    slackUsernameController.dispose();
-    githubHandleController.dispose();
-    personalBioController.dispose();
-    technicalSkillsController.dispose();
-    languageProficiencyController.dispose();
-    super.dispose();
-  }
+  const CVEditScreen({required this.initialCVData, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController fullNameController = TextEditingController(text: initialCVData.fullName);
+    final TextEditingController slackUsernameController = TextEditingController(text: initialCVData.slackUsername);
+    final TextEditingController githubHandleController = TextEditingController(text: initialCVData.githubHandle);
+    final TextEditingController personalBioController = TextEditingController(text: initialCVData.personalBio);
+    final TextEditingController technicalSkillsController = TextEditingController(text: initialCVData.technicalSkills);
+    final TextEditingController languageProficiencyController = TextEditingController(text: initialCVData.languageProficiency);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit CV'),
@@ -72,11 +44,11 @@ class _CVEditScreenState extends State<CVEditScreen> {
               ),
               TextFormField(
                 controller: technicalSkillsController,
-                decoration: InputDecoration(labelText: 'Technical Skills'), // Corrected
+                decoration: InputDecoration(labelText: 'Technical Skills'),
               ),
               TextFormField(
                 controller: languageProficiencyController,
-                decoration: InputDecoration(labelText: 'Language Proficiency'), // Corrected
+                decoration: InputDecoration(labelText: 'Language Proficiency'),
               ),
               SizedBox(height: 20),
               ElevatedButton(
@@ -86,12 +58,11 @@ class _CVEditScreenState extends State<CVEditScreen> {
                     slackUsername: slackUsernameController.text,
                     githubHandle: githubHandleController.text,
                     personalBio: personalBioController.text,
-                    technicalSkills: technicalSkillsController.text, // Corrected
-                    languageProficiency: languageProficiencyController.text, // Corrected
+                    technicalSkills: technicalSkillsController.text,
+                    languageProficiency: languageProficiencyController.text,
                   );
-                  widget.onSave(updatedCV);
 
-                  Navigator.pop(context);
+                  Navigator.pop(context, updatedCV); // Pass the updated data back
                 },
                 child: Text('Save'),
               ),

@@ -13,9 +13,9 @@ class _CVScreenState extends State<CVScreen> {
   CVData cvData = CVData(
     fullName: 'Achu Ijeoma Cynthia',
     slackUsername: 'Ij_Trudy',
-    githubHandle: 'https://github.com/cindytrudy',
+    githubHandle: 'Cindytrudy',
     personalBio: '''
-      A logical and result-driven mobile app developer who is dedicated to building user-focused mobile apps for customers with various business objectives. Proficient in Dart, Flutter, and Firebase, as well as writing clean, readable, and testable code. Passionate about learning innovative new mobile technologies.
+      Hello, I'm Achu Ijeoma Cynthia, a dedicated and results-driven mobile app developer. With a keen eye for detail and a passion for clean, efficient code, I create user-focused mobile applications that meet diverse business objectives. Proficient in Dart, Flutter, and Firebase, I'm committed to staying at the forefront of innovative mobile technologies. When I'm not coding, you'll find me exploring new programming challenges and expanding my skill set. Let's connect and build something amazing together
     ''',
     technicalSkills: 'Teamwork and Collaboration, Efficiency in documentation, Effective communicator, Detail-oriented',
     languageProficiency: 'Dart, Flutter, Firebase',
@@ -27,92 +27,74 @@ class _CVScreenState extends State<CVScreen> {
       appBar: AppBar(
         title: Text('My CV'),
       ),
-      body: Center( // Center the content
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInfoRow(Icons.person, 'Full Name:', cvData.fullName),
-              _buildInfoRow(Icons.message, 'Slack Username:', cvData.slackUsername),
+              // Full Name
+              Center(
+                child: Text(
+                  cvData.fullName,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Slack Username
+              _buildInfoRow(Icons.person, 'Slack Username:', cvData.slackUsername),
+
+              // GitHub Handle
               _buildInfoRow(Icons.link, 'GitHub Handle:', cvData.githubHandle),
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Technical Skills:',
-                      style: TextStyle(fontSize: 18, color: Colors.blue), // Blue color for heading
-                    ),
-                    _buildBulletList(cvData.technicalSkills.split(', ')), // Split skills and create bullet points
-                  ],
-                ),
+
+              // Personal Bio
+              _buildSectionHeader('Personal Bio'),
+              Text(
+                cvData.personalBio,
+                style: TextStyle(fontSize: 16),
               ),
+
+              // Technical Skills
+              _buildSectionHeader('Technical Skills'),
               Container(
-                margin: EdgeInsets.only(bottom: 10),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.green, width: 2), // Green border for language proficiency
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Language Proficiency:',
-                      style: TextStyle(fontSize: 18, color: Colors.green), // Green color for heading
-                    ),
-                    _buildBulletList(cvData.languageProficiency.split(', ')), // Split languages and create bullet points
-                  ],
-                ),
+                height: 120, // Set a fixed height to prevent overflow
+                child: _buildBulletList(cvData.technicalSkills.split(', ')),
               ),
+
+              // Language Proficiency
+              _buildSectionHeader('Language Proficiency'),
               Container(
-                margin: EdgeInsets.only(bottom: 10),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Personal Bio:',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      cvData.personalBio,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
+                height: 80, // Set a fixed height to prevent overflow
+                child: _buildBulletList(cvData.languageProficiency.split(', ')),
               ),
+
+              // Edit CV Button
               SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigate to the CV edit screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CVEditScreen(
-                        initialCVData: cvData,
-                        onSave: (updatedCV) {
-                          setState(() {
-                            // Update the CV data in real-time
-                            cvData = updatedCV;
-                          });
-                        },
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final updatedCV = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CVEditScreen(
+                          initialCVData: cvData,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: Text('Edit CV'),
+                    );
+
+                    if (updatedCV != null) {
+                      setState(() {
+                        // Update the CV data in real-time
+                        cvData = updatedCV;
+                      });
+                    }
+                  },
+                  child: Text('Edit CV'),
+                ),
               ),
             ],
           ),
@@ -122,26 +104,17 @@ class _CVScreenState extends State<CVScreen> {
   }
 
   Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue, width: 2),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
         children: [
-          Row(
-            children: [
-              Icon(icon, size: 18),
-              SizedBox(width: 10),
-              Text(
-                label,
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
+          Icon(icon, size: 18, color: Colors.blue),
+          SizedBox(width: 10),
+          Text(
+            label,
+            style: TextStyle(fontSize: 16),
           ),
+          SizedBox(width: 10),
           Text(
             value,
             style: TextStyle(fontSize: 16),
@@ -151,19 +124,35 @@ class _CVScreenState extends State<CVScreen> {
     );
   }
 
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.blue,
+        ),
+      ),
+    );
+  }
+
   Widget _buildBulletList(List<String> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      shrinkWrap: true,
       children: items.map((item) {
         return Padding(
-          padding: const EdgeInsets.only(left: 16.0),
+          padding: const EdgeInsets.only(left: 16.0, bottom: 4.0),
           child: Row(
             children: [
-              Icon(Icons.arrow_right, size: 16, color: Colors.blue), // Blue bullet point
+              Icon(Icons.arrow_right, size: 18, color: Colors.blue),
               SizedBox(width: 10),
-              Text(
-                item,
-                style: TextStyle(fontSize: 16),
+              Flexible(
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
             ],
           ),
@@ -171,4 +160,10 @@ class _CVScreenState extends State<CVScreen> {
       }).toList(),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: CVScreen(),
+  ));
 }
