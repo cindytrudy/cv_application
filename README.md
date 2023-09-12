@@ -1,9 +1,16 @@
 # cv_application
 
 # Welcome to my CV Application App
-This app is designed to introudce me to the world as a mobile app developer.
-It includes a displace profile page which has my slack name, my slack display image and also a button that takes you directly to in GitHub profile using a WebView.
+This app is designed to show CV.
+It includes :
 
+1. FullName
+2. Slackusername
+3. Githubhandle
+4. Personal Bio
+5. Technical Skills
+6. Language Proficiency
+7. 
 ## Getting Started
 
 ### Prerequisites
@@ -25,3 +32,6 @@ Before you start, ensure you have met the following requirements:
 3. Install dependencies: flutter pub get
 
 ### Usage
+Launch the app on your preferred device or emulator: flutter run
+
+### Appetize Link
